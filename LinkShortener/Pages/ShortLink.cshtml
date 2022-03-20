@@ -1,0 +1,30 @@
+﻿@page
+@model LinkShortener.Pages.ShortLinkModel
+@{
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="text-center">
+        <form method="post" asp-page="/ShortLink">
+            <label for="long-link">لینک طولانیتو بده</label>
+            <input id="long-link" placeholder="لینک" name="longLink" class="form-control" />
+            <button class="btn btn-success mt-3">کوتاش کن !</button>
+        </form>
+        @if (!String.IsNullOrEmpty(ViewData["Link"] as string))
+        {
+            <div class="mt-5">
+                <p>لینک کوتاه شده شما : </p>
+                <a href="/link/@ViewData["Link"]">https://localhost:44311/link/@ViewData["Link"]</a>
+            </div>
+        }
+    </div>
+}
+else 
+{
+    <div class="text-center">
+        <h4>لطفا ابتدا ثبت نام کنید</h4>
+        <a class="btn btn-lg btn-primary" asp-page="/Register">ثبت نام</a>
+        <p>ثبت نام کرده اید؟ <a asp-page="/Login">وارد شوید</a></p>
+    </div>
+}

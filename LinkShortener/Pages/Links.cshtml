@@ -1,0 +1,35 @@
+﻿@page
+@using LinkShortener.Model
+@model LinkShortener.Pages.LinksModel
+@{
+    var links = ViewData["Links"] as List<Links>;
+}
+
+@if (links.Count() <= 0)
+{
+    <div class="text-center">
+        <h4>شما هیچ لینک کوتاه شده ای ندارید 😔</h4>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <table class="table">
+            <thead>
+            <th>#</th>
+            <th>لینک کوتاه شده</th>
+            <th>تعداد بازدید</th>
+            </thead>
+            <tbody>
+                @foreach (var link in links.Select((value, i) => new {value, i}))
+                {
+                    <tr>
+                        <td>@(link.i + 1)</td>
+                        <td><a href="/link/@link.value.ShortenedLink">@link.value.ShortenedLink</a></td>
+                        <td>@link.value.Views</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
